@@ -1,23 +1,15 @@
-import {UserController} from "./controller/UserController";
+import { Router, Request, Response } from 'express';
+import { saveUser, getUser, login, forgoutPass } from './controller/UserController'
 
-export const Routes = [{
-    method: "get",
-    route: "/users",
-    controller: UserController,
-    action: "all"
-}, {
-    method: "get",
-    route: "/users/:id",
-    controller: UserController,
-    action: "one"
-}, {
-    method: "post",
-    route: "/users",
-    controller: UserController,
-    action: "save"
-}, {
-    method: "delete",
-    route: "/users/:id",
-    controller: UserController,
-    action: "remove"
-}];
+const routes = Router();
+
+routes.get('/', (request: Request, response: Response) => {
+    return response.json({ message: "hello World !" })
+});
+
+routes.post('/users', saveUser);
+routes.get('/getUsers', getUser);
+routes.post('/session', login);
+routes.post('/forgout', forgoutPass);
+
+export default routes;
